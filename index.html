@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>CASCADE | Reverse the Future</title>
+    <title>CASCADE | AI Hardware Exchange</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
       :root {
         --blue: #169cff;
         --deep: #0a3cff;
@@ -15,27 +16,33 @@
         --line: #1c2d3b;
         --white: #f5f7fa;
       }
+
       * {
         box-sizing: border-box;
       }
+
       html {
         scroll-behavior: smooth;
       }
+
       body {
         margin: 0;
         background: var(--ink);
         color: var(--white);
         font-family: Inter, Arial, sans-serif;
       }
+
       a {
         color: inherit;
         text-decoration: none;
       }
+
       .wrap {
         max-width: 1220px;
         margin: auto;
         padding: 0 34px;
       }
+
       .nav {
         height: 78px;
         display: flex;
@@ -48,17 +55,20 @@
         backdrop-filter: blur(14px);
         z-index: 20;
       }
+
       .brand {
         font: 600 30px "Barlow Condensed";
         letter-spacing: 3px;
         text-shadow: 0 0 14px #168cff;
       }
+
       .brand small {
         font: 400 10px Inter;
         letter-spacing: 3px;
         color: #9cb9d1;
         display: block;
       }
+
       .links {
         display: flex;
         gap: 28px;
@@ -67,6 +77,7 @@
         letter-spacing: 1.5px;
         text-transform: uppercase;
       }
+
       .btn {
         border: 1px solid var(--blue);
         padding: 12px 18px;
@@ -76,20 +87,29 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+
       .btn.primary {
         background: var(--blue);
         color: #00101c;
         box-shadow: 0 0 25px #078bff55;
         font-weight: 700;
       }
+
       .hero {
         min-height: 720px;
         display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
+        grid-template-columns: 1fr;
         align-items: center;
+        justify-items: center;
         position: relative;
         overflow: hidden;
       }
+
+      .hero-copy {
+        max-width: 760px;
+        text-align: center;
+      }
+
       .hero:after {
         content: "";
         position: absolute;
@@ -102,12 +122,14 @@
           transparent
         );
       }
+
       .eyebrow {
         font-size: 12px;
         letter-spacing: 3px;
         text-transform: uppercase;
         color: #9dcfff;
       }
+
       .hero h1 {
         font: 300 clamp(80px, 11vw, 155px)/0.74 "Barlow Condensed";
         letter-spacing: 2px;
@@ -116,76 +138,48 @@
           0 0 12px #fff7,
           0 0 30px #008cff;
       }
+
       .hero h2 {
         font: 400 26px "Barlow Condensed";
         letter-spacing: 5px;
         margin: 25px 0;
       }
+
       .hero p {
         color: #bdc5cc;
         line-height: 1.75;
         max-width: 600px;
+        margin: 0 auto;
         font-size: 16px;
       }
+
       .hero-actions {
         display: flex;
+        justify-content: center;
         gap: 14px;
         margin-top: 34px;
       }
-      .visual {
-        height: 510px;
-        position: relative;
-        background:
-          linear-gradient(180deg, #07101a88, #030405),
-          url("cascade_cover.png") center/cover;
-        border-left: 1px solid #14344d;
-        clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 12%);
-      }
-      .visual:before {
-        content: "ASSET ROUTING // LIVE";
-        position: absolute;
-        top: 22px;
-        right: 22px;
-        font: 11px monospace;
-        color: #7dc8ff;
-        letter-spacing: 2px;
-      }
-      .visual .scan {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 30%;
-        height: 1px;
-        background: #42b6ff;
-        box-shadow: 0 0 18px #42b6ff;
-        animation: scan 4s linear infinite;
-      }
-      @keyframes scan {
-        50% {
-          top: 78%;
-        }
-      }
+
       section {
         padding: 105px 0;
       }
-      .section-label {
-        font-size: 13px;
-        color: #b8c0c7;
-        margin-bottom: 12px;
-      }
+
       .section-title {
         font: 600 clamp(48px, 7vw, 88px)/0.92 "Barlow Condensed";
         margin: 0 0 30px;
         text-transform: uppercase;
       }
+
       .section-title.glow {
         text-shadow: 0 0 20px #138eff88;
       }
+
       .rule {
         height: 1px;
         background: linear-gradient(90deg, var(--blue), transparent);
         margin: 18px 0 50px;
       }
+
       .problem-grid,
       .how-grid {
         display: grid;
@@ -193,63 +187,76 @@
         gap: 60px;
         align-items: start;
       }
+
       .big-copy {
         font: 300 38px/1.15 "Barlow Condensed";
         color: #e9eef2;
       }
+
       .muted {
         color: #9aa4ad;
         line-height: 1.8;
       }
+
       .flow {
         display: grid;
         grid-template-columns: 1fr 80px 1.2fr 80px 1fr;
         align-items: center;
         margin-top: 55px;
       }
+
       .node {
         border: 1px solid #263b4d;
         background: #090c10;
         padding: 28px;
         min-height: 175px;
       }
+
       .node.main {
         border-color: var(--blue);
         box-shadow: 0 0 28px #008cff22;
       }
+
       .node .num {
         font: 11px monospace;
         color: #58bfff;
       }
+
       .node h3 {
         font: 600 27px "Barlow Condensed";
         letter-spacing: 1px;
         margin: 14px 0;
       }
+
       .arrow {
         text-align: center;
         color: var(--blue);
         font-size: 34px;
       }
+
       .chips {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
       }
+
       .chip {
         font-size: 11px;
         border: 1px solid #263441;
         padding: 7px 9px;
         color: #aab6c0;
       }
+
       .market {
         background: linear-gradient(180deg, #030405, #07101a 48%, #030405);
       }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
       }
+
       .card {
         background: #090c10;
         border: 1px solid #1b2c3a;
@@ -257,35 +264,42 @@
         min-height: 210px;
         transition: 0.25s;
       }
+
       .card:hover {
         transform: translateY(-5px);
         border-color: #159cff;
         box-shadow: 0 0 30px #008cff17;
       }
+
       .card .icon {
         font: 300 38px "Barlow Condensed";
         color: #49b6ff;
       }
+
       .card h3 {
         font: 600 25px "Barlow Condensed";
         text-transform: uppercase;
         letter-spacing: 1px;
       }
+
       .card p {
         color: #9aa4ad;
         font-size: 14px;
         line-height: 1.7;
       }
+
       .demo {
         border: 1px solid #183148;
         background: #05080b;
         padding: 32px;
       }
+
       .demo-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 28px;
       }
+
       .field label {
         display: block;
         font-size: 10px;
@@ -294,6 +308,7 @@
         margin-bottom: 9px;
         text-transform: uppercase;
       }
+
       .field select,
       .field input {
         width: 100%;
@@ -304,39 +319,47 @@
         font-family: Inter;
         margin-bottom: 18px;
       }
+
       .result {
         background: #07111a;
         border-left: 2px solid var(--blue);
         padding: 24px;
       }
+
       .score {
         font: 600 68px "Barlow Condensed";
         color: white;
         text-shadow: 0 0 18px #159cff;
       }
+
       .route {
         font: 600 28px "Barlow Condensed";
         text-transform: uppercase;
       }
+
       .metrics {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         margin-top: 18px;
       }
+
       .metric {
         background: #0c141b;
         padding: 12px;
       }
+
       .metric b {
         display: block;
         font: 600 20px "Barlow Condensed";
         color: #75c8ff;
       }
+
       .metric span {
         font-size: 10px;
         color: #7e8992;
       }
+
       .cta {
         text-align: center;
         padding: 130px 20px;
@@ -346,29 +369,35 @@
           transparent 48%
         );
       }
+
       .cta h2 {
         font: 600 clamp(55px, 8vw, 110px)/0.9 "Barlow Condensed";
         margin: 0;
         text-transform: uppercase;
       }
+
       .cta h2 span {
         text-shadow: 0 0 20px #138eff;
       }
+
       .cta p {
         color: #aeb8c0;
         max-width: 620px;
         margin: 28px auto;
       }
+
       .footer {
         border-top: 1px solid #17242e;
         padding: 35px 0 55px;
         color: #78838c;
         font-size: 12px;
       }
+
       .footer .wrap {
         display: flex;
         justify-content: space-between;
       }
+
       .toast {
         position: fixed;
         bottom: 25px;
@@ -381,46 +410,52 @@
         transition: 0.25s;
         z-index: 30;
       }
+
       .toast.show {
         opacity: 1;
         transform: none;
       }
+
       @media (max-width: 850px) {
         .links a:not(.btn) {
           display: none;
         }
+
         .hero {
           grid-template-columns: 1fr;
           padding-top: 60px;
         }
-        .visual {
-          height: 360px;
-          margin-top: 50px;
-        }
+
         .problem-grid,
         .how-grid,
         .demo-grid {
           grid-template-columns: 1fr;
         }
+
         .flow {
           grid-template-columns: 1fr;
         }
+
         .arrow {
           transform: rotate(90deg);
           padding: 12px;
         }
+
         .cards {
           grid-template-columns: 1fr;
         }
+
         .metrics {
           grid-template-columns: 1fr;
         }
+
         .hero h1 {
           font-size: 90px;
         }
       }
     </style>
   </head>
+
   <body>
     <div class="nav">
       <div
@@ -432,12 +467,13 @@
           justify-content: space-between;
         "
       >
-        <a class="brand" href="#top"
-          >CASCADE<small>REVERSE THE FUTURE</small></a
-        >
+        <a class="brand" href="#top">CASCADE</a>
         <div class="links">
-          <a href="#problem">Problem</a><a href="#how">How it works</a
-          ><a href="#market">Marketplace</a><a href="#demo">Optimizer</a
+          <a href="#problem">Problem</a
+          ><a href="how-it-works.html">How it works</a
+          ><a href="#market">Marketplace</a><a href="match.html">Find a match</a
+          ><a href="list-hardware.html">List hardware</a
+          ><a href="certification.html">Testing</a
           ><a class="btn" href="#contact">Join Cascade</a>
         </div>
       </div>
@@ -445,45 +481,45 @@
     <main id="top">
       <div class="wrap">
         <section class="hero">
-          <div>
+          <div class="hero-copy">
             <div class="eyebrow">AI infrastructure, re-routed</div>
             <h1>CASCADE</h1>
-            <h2>REVERSE THE FUTURE</h2>
+            <h2>MATCH COMPUTE TO PURPOSE</h2>
             <p>
-              Retired AI hardware should not become waste simply because the
-              frontier moved forward. Cascade evaluates every asset and routes
-              it toward its highest value next life.
+              The most powerful hardware is not always the right hardware.
+              Cascade connects retired AI infrastructure with users whose
+              computing needs match its remaining capabilities.
             </p>
             <div class="hero-actions">
-              <a class="btn primary" href="#demo">Evaluate Hardware</a
-              ><a class="btn" href="#how">Explore the Network</a>
+              <a class="btn primary" href="match.html">Find your match</a
+              ><a class="btn" href="how-it-works.html">How Cascade works</a>
             </div>
           </div>
-          <div class="visual"><div class="scan"></div></div>
         </section>
       </div>
       <section id="problem">
         <div class="wrap">
-          <div class="section-label">01 / The Problem</div>
           <div class="rule"></div>
           <div class="problem-grid">
             <div>
-              <h2 class="section-title glow">FLOATING<br />TECHNOLOGY</h2>
+              <h2 class="section-title glow">STRANDED<br />COMPUTE</h2>
               <div class="big-copy">
-                The hardware still works.<br />The market connection does not.
+                Valuable hardware.<br />What comes next?
               </div>
             </div>
             <div>
               <p class="muted">
-                As hyperscalers, AI companies, enterprises, and universities
-                upgrade infrastructure, usable GPUs and servers can become
-                stranded assets. A system optimized for disposal or simple
-                resale misses the more important question: where can this
-                hardware create the most value next?
+                As AI infrastructure is rapidly upgraded, capable GPUs and
+                servers are removed from their original environments while they
+                still have remaining useful life. The challenge is not simply
+                finding someone willing to buy used hardware. It is determining
+                which next user can make effective use of each asset based on
+                its performance, condition, efficiency, location, and market
+                demand.
               </p>
               <p class="muted">
-                Cascade connects supply to demand through asset intelligence,
-                certification, logistics, and lifecycle optimization.
+                Without that connection, usable compute can be undervalued,
+                inefficiently redeployed, or prematurely recycled.
               </p>
             </div>
           </div>
@@ -491,39 +527,56 @@
       </section>
       <section id="how">
         <div class="wrap">
-          <div class="section-label">02 / Reverse Supply Chain</div>
-          <h2 class="section-title">ONE ASSET.<br />MANY POSSIBLE LIVES.</h2>
+          <h2 class="section-title">MATCHING<br />PURPOSE</h2>
+          <div class="problem-grid">
+            <div>
+              <div class="big-copy">
+                Giving capable hardware a second life by matching its remaining
+                power to a real computing need.
+              </div>
+            </div>
+            <div>
+              <p class="muted">
+                Retired AI hardware does not lose its value simply because it
+                can no longer meet the demands of its original user. By
+                evaluating its capabilities against the actual requirements of a
+                next user, that technology can be placed where it performs
+                effectively without providing unnecessary computing power.
+              </p>
+              <p class="muted">
+                The result is infrastructure that is powerful enough for the
+                job, without the cost, energy use, and waste of more technology
+                than necessary.
+              </p>
+            </div>
+          </div>
           <div class="flow">
             <div class="node">
-              <div class="num">SUPPLY // 01</div>
-              <h3>Retired Infrastructure</h3>
+              <div class="num">AVAILABLE // 01</div>
+              <h3>Hardware Capability</h3>
               <div class="chips">
-                <span class="chip">Hyperscalers</span
-                ><span class="chip">Data Centers</span
-                ><span class="chip">Enterprises</span
-                ><span class="chip">Universities</span>
+                <span class="chip">Performance</span
+                ><span class="chip">Condition</span
+                ><span class="chip">Efficiency</span>
               </div>
             </div>
             <div class="arrow">→</div>
             <div class="node main">
-              <div class="num">CASCADE // 02</div>
-              <h3>Evaluate + Optimize</h3>
+              <div class="num">MATCH // 02</div>
+              <h3>Purpose Fit</h3>
               <p class="muted">
-                Performance, condition, efficiency, location, shipping cost,
-                demand, and remaining useful life become one routing decision.
+                Compare what the hardware can still deliver with what a
+                potential next user actually needs.
               </p>
             </div>
             <div class="arrow">→</div>
             <div class="node">
-              <div class="num">DEMAND // 03</div>
-              <h3>Highest Value Next Use</h3>
+              <div class="num">OUTCOME // 03</div>
+              <h3>Appropriate Compute</h3>
               <div class="chips">
-                <span class="chip">Startups</span
-                ><span class="chip">Researchers</span
-                ><span class="chip">Edge AI</span
-                ><span class="chip">Education</span
-                ><span class="chip">Parts</span
-                ><span class="chip">Recycling</span>
+                <span class="chip">Enough Power</span
+                ><span class="chip">Lower Cost</span
+                ><span class="chip">Less Waste</span>
               </div>
             </div>
           </div>
@@ -531,139 +584,93 @@
       </section>
       <section id="market" class="market">
         <div class="wrap">
-          <div class="section-label">03 / Marketplace</div>
-          <h2 class="section-title glow">
-            VALUE DOESN'T END<br />AT THE FIRST OWNER.
-          </h2>
-          <div class="cards">
-            <div class="card">
-              <div class="icon">A1</div>
-              <h3>AI Training</h3>
-              <p>
-                High performing certified assets remain productive for startups
-                and research teams that do not require frontier hardware.
+          <h2 class="section-title glow">WHAT IS<br />CASCADE?</h2>
+          <div class="problem-grid" style="margin-bottom: 55px">
+            <div>
+              <div class="big-copy">
+                A two-sided marketplace for retired AI infrastructure.
+              </div>
+              <p class="muted">
+                Cascade connects organizations retiring AI hardware with users
+                whose computing needs match that hardware’s remaining
+                capabilities.
               </p>
             </div>
-            <div class="card">
-              <div class="icon">B2</div>
-              <h3>Inference + Edge</h3>
-              <p>
-                Older hardware can shift into local inference, robotics, small
-                business, and community compute workloads.
+            <div>
+              <p class="muted">
+                <b style="color: white">Traditional marketplaces ask:</b> “Who
+                will buy this?”
+              </p>
+              <p class="muted">
+                <b style="color: white">Cascade asks:</b> “Who is this hardware
+                right for?”
+              </p>
+              <p class="muted">
+                The goal is not to sell more powerful hardware. It is to match
+                the right amount of power to the right user.
               </p>
             </div>
-            <div class="card">
-              <div class="icon">C3</div>
-              <h3>Education</h3>
-              <p>
-                Universities, schools, labs, and makerspaces gain lower cost
-                access to real AI infrastructure.
+          </div>
+          <div class="flow">
+            <div class="node">
+              <div class="num">SUPPLY</div>
+              <h3>Retiring Hardware</h3>
+              <div class="chips">
+                <span class="chip">Hyperscalers</span
+                ><span class="chip">AI Companies</span
+                ><span class="chip">Data Centers</span
+                ><span class="chip">Enterprises</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node main">
+              <div class="num">CASCADE</div>
+              <h3>Evaluate • Match • Redirect</h3>
+              <p class="muted">
+                Evaluate where each asset can create the most value, then
+                connect it with the right next user.
               </p>
             </div>
-            <div class="card">
-              <div class="icon">D4</div>
-              <h3>Parts Harvesting</h3>
-              <p>
-                When full system deployment no longer makes economic sense,
-                useful components can continue downstream.
-              </p>
-            </div>
-            <div class="card">
-              <div class="icon">E5</div>
-              <h3>Material Recovery</h3>
-              <p>
-                True end of life assets move to responsible recycling only after
-                higher value reuse pathways are exhausted.
-              </p>
-            </div>
-            <div class="card">
-              <div class="icon">∞</div>
-              <h3>Lifecycle Analytics</h3>
-              <p>
-                Asset owners gain visibility into residual value, disposition
-                timing, sustainability outcomes, and secondary demand.
-              </p>
+            <div class="arrow">→</div>
+            <div class="node">
+              <div class="num">DEMAND</div>
+              <h3>Computing Needs</h3>
+              <div class="chips">
+                <span class="chip">Startups</span
+                ><span class="chip">Universities</span
+                ><span class="chip">Researchers</span
+                ><span class="chip">Small Business</span
+                ><span class="chip">Edge AI</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section id="demo">
         <div class="wrap">
-          <div class="section-label">04 / Prototype</div>
-          <h2 class="section-title">CASCADE<br />ROUTING ENGINE</h2>
           <div class="demo">
-            <div class="demo-grid">
-              <div>
-                <div class="field">
-                  <label>Hardware class</label
-                  ><select id="hw">
-                    <option>A100 40GB</option>
-                    <option>RTX A6000</option>
-                    <option>V100 32GB</option>
-                    <option>T4 16GB</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Condition</label
-                  ><select id="cond">
-                    <option value="95">Excellent</option>
-                    <option value="80">Good</option>
-                    <option value="60">Fair</option>
-                    <option value="35">Degraded</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Utilization history</label
-                  ><select id="use">
-                    <option value="10">Light</option>
-                    <option value="20">Moderate</option>
-                    <option value="35">Heavy</option>
-                  </select>
-                </div>
-                <button class="btn primary" onclick="routeAsset()">
-                  Run Cascade Evaluation
-                </button>
-              </div>
-              <div class="result">
-                <div class="eyebrow">Recommended route</div>
-                <div class="score" id="score">92</div>
-                <div class="route" id="route">Startup AI Compute</div>
-                <p class="muted" id="desc">
-                  Strong remaining compute value makes continued deployment more
-                  valuable than component recovery or recycling.
-                </p>
-                <div class="metrics">
-                  <div class="metric">
-                    <b id="life">3.8 yrs</b><span>EST. USEFUL LIFE</span>
-                  </div>
-                  <div class="metric">
-                    <b id="value">HIGH</b><span>RESIDUAL VALUE</span>
-                  </div>
-                  <div class="metric">
-                    <b id="impact">REUSE</b><span>BEST PATH</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="eyebrow">Start with the work, not the hardware</div>
+            <h2 class="section-title">What are you<br />trying to run?</h2>
+            <p class="muted">
+              Describe your workload and constraints. Cascade will suggest
+              hardware classes that may fit, with a clear explanation of the
+              tradeoffs.
+            </p>
+            <a class="btn primary" href="match.html"
+              >Find your technology match</a
+            >
+            <a class="btn" href="list-hardware.html">List hardware</a>
           </div>
         </div>
       </section>
       <section id="contact" class="cta">
-        <div class="eyebrow">
-          The next generation does not make the last one worthless.
-        </div>
+        <div class="eyebrow">The right technology for the right purpose.</div>
         <h2>CASCADING CHANGE.<br /><span>CREATING TOMORROW.</span></h2>
         <p>
-          Join a reverse supply chain designed to keep AI infrastructure
-          productive for as long as it can create economic and environmental
-          value.
+          Help build a marketplace where capable AI hardware keeps working, and
+          where users get the computing power they actually need.
         </p>
-        <button
-          class="btn primary"
-          onclick="notify('Early access request captured for prototype demo.')"
-        >
-          Join the Network
-        </button>
+        <a class="btn primary" href="match.html"> Join the Network </a>
       </section>
     </main>
     <footer class="footer">
@@ -672,56 +679,5 @@
         <div>MORALES & SEATON // REVERSE THE FUTURE</div>
       </div>
     </footer>
-    <div class="toast" id="toast"></div>
-    <script>
-      function routeAsset() {
-        const c = +document.getElementById("cond").value,
-          u = +document.getElementById("use").value;
-        const s = Math.max(18, Math.min(98, Math.round(c - u / 3)));
-        let r, d, l, v, i;
-        if (s >= 82) {
-          r = "Startup AI Compute";
-          d =
-            "Strong remaining compute value makes continued deployment more valuable than component recovery or recycling.";
-          l = "3.8 yrs";
-          v = "HIGH";
-          i = "REUSE";
-        } else if (s >= 65) {
-          r = "Edge + Local Inference";
-          d =
-            "The asset remains useful, but its best economics shift toward smaller inference and edge workloads.";
-          l = "2.6 yrs";
-          v = "MED-HIGH";
-          i = "REDEPLOY";
-        } else if (s >= 45) {
-          r = "Education + Research";
-          d =
-            "Lower intensity academic workloads can capture remaining value without demanding frontier efficiency.";
-          l = "1.7 yrs";
-          v = "MEDIUM";
-          i = "REUSE";
-        } else {
-          r = "Parts Harvesting";
-          d =
-            "Whole-system economics are weak. Recovering reusable components is likely to preserve more value before recycling.";
-          l = "<1 yr";
-          v = "LOW";
-          i = "RECOVER";
-        }
-        document.getElementById("score").textContent = s;
-        document.getElementById("route").textContent = r;
-        document.getElementById("desc").textContent = d;
-        document.getElementById("life").textContent = l;
-        document.getElementById("value").textContent = v;
-        document.getElementById("impact").textContent = i;
-        notify("Evaluation complete: " + r);
-      }
-      function notify(t) {
-        const x = document.getElementById("toast");
-        x.textContent = t;
-        x.classList.add("show");
-        setTimeout(() => x.classList.remove("show"), 2600);
-      }
-    </script>
   </body>
 </html>

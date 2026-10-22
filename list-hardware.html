@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Describe retired AI hardware and discover which buyer communities may benefit from it."
+    />
+    <title>List Hardware | CASCADE</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+      :root {
+        color-scheme: dark;
+        --blue: #169cff;
+        --ink: #030405;
+        --panel: #090c10;
+        --muted: #9da5ae;
+        --white: #f5f7fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--white);
+        font-family: Inter, Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        width: min(1120px, 100%);
+        margin: auto;
+        padding: 0 28px;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 78px;
+        padding: 0 max(28px, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid #15212b;
+        background: rgb(3 4 5 / 92%);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        font:
+          600 30px "Barlow Condensed",
+          sans-serif;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px #168cff;
+      }
+
+      .brand small {
+        display: block;
+        color: #9cb9d1;
+        font:
+          400 10px Inter,
+          sans-serif;
+        letter-spacing: 3px;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 13px 18px;
+        border: 1px solid var(--blue);
+        background: transparent;
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn.primary {
+        background: var(--blue);
+        color: #00101c;
+        font-weight: 700;
+      }
+
+      main {
+        padding: 78px 0 110px;
+      }
+
+      .eyebrow {
+        color: #9dcfff;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 800px;
+        margin: 16px 0;
+        font-size: clamp(58px, 9vw, 104px);
+        line-height: 0.9;
+      }
+
+      .intro {
+        max-width: 700px;
+        color: #bdc5cc;
+        line-height: 1.8;
+      }
+
+      .notice {
+        margin: 30px 0;
+        padding: 16px 18px;
+        border-left: 2px solid var(--blue);
+        background: #07111a;
+        color: #bdc5cc;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 28px;
+        align-items: start;
+        margin-top: 38px;
+      }
+
+      form,
+      .output {
+        padding: 28px;
+        border: 1px solid #183148;
+        background: #05080b;
+      }
+
+      .output {
+        min-height: 340px;
+      }
+
+      .field {
+        margin-bottom: 19px;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 9px;
+        color: #7eb7df;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #253846;
+        border-radius: 0;
+        background: #080d12;
+        color: var(--white);
+        font:
+          14px Inter,
+          Arial,
+          sans-serif;
+      }
+
+      textarea {
+        min-height: 88px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      .help {
+        margin: 8px 0 0;
+        color: #818d97;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .empty {
+        display: grid;
+        min-height: 280px;
+        place-content: center;
+        color: #87939d;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .output h2 {
+        margin: 8px 0;
+        font-size: 38px;
+      }
+
+      .output-intro {
+        color: #aeb8c0;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .listing {
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #263b4d;
+        background: var(--panel);
+      }
+
+      .listing h3 {
+        margin: 0 0 8px;
+        font-size: 30px;
+      }
+
+      .specs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .spec {
+        padding: 6px 8px;
+        border: 1px solid #263441;
+        color: #aab6c0;
+        font-size: 10px;
+      }
+
+      .listing p,
+      .segment p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .segment-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .segment {
+        padding: 18px;
+        border: 1px solid #263b4d;
+        background: var(--panel);
+      }
+
+      .segment:first-child {
+        border-color: var(--blue);
+        box-shadow: 0 0 22px #008cff1a;
+      }
+
+      .segment-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 12px;
+      }
+
+      .segment h3 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .fit {
+        color: #75c8ff;
+        font:
+          600 19px "Barlow Condensed",
+          sans-serif;
+        white-space: nowrap;
+      }
+
+      .segment p {
+        margin-bottom: 0;
+      }
+
+      .footer {
+        padding: 28px;
+        border-top: 1px solid #17242e;
+        color: #78838c;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      @media (max-width: 850px) {
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+
+        .links {
+          flex-wrap: wrap;
+          gap: 14px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+          padding: 14px 20px;
+        }
+
+        .wrap {
+          padding: 0 18px;
+        }
+
+        .field-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        form,
+        .output {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="index.html">CASCADE</a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="index.html#market">Marketplace</a>
+        <a href="match.html">Find a match</a>
+        <a href="list-hardware.html" aria-current="page">List hardware</a>
+        <a href="certification.html">Testing</a>
+      </nav>
+    </header>
+    <main>
+      <div class="wrap">
+        <div class="eyebrow">Seller tools</div>
+        <h1>Give your hardware its next best job.</h1>
+        <p class="intro">
+          Add a few details about the equipment you are retiring. Cascade will
+          suggest the kinds of buyers or users most likely to benefit—like a
+          used-car marketplace that helps a listing find its right audience, not
+          just a price.
+        </p>
+        <div class="notice">
+          Buyer segments are recommendations, not confirmed leads. Listings
+          should include verified equipment condition, ownership, secure data
+          erasure, compatibility, and clear pricing before a transfer.
+        </div>
+        <p class="help">
+          Prepare your equipment for review with the
+          <a href="certification.html">testing and certification checklist</a>.
+        </p>
+
+        <div class="workspace">
+          <form id="hardware-form">
+            <div class="field">
+              <label for="model">Hardware model</label>
+              <input
+                id="model"
+                name="model"
+                type="text"
+                placeholder="Example: NVIDIA A100 40GB"
+                maxlength="100"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="class">Hardware class</label>
+              <select id="class" name="hardwareClass" required>
+                <option value="datacenter">Data-center accelerator</option>
+                <option value="workstation">Workstation GPU</option>
+                <option value="entry">Entry-level / edge GPU</option>
+                <option value="unknown">Not sure / other</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="memory">Memory per GPU (GB)</label>
+                <input
+                  id="memory"
+                  name="memory"
+                  type="number"
+                  min="1"
+                  max="1024"
+                  value="40"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="quantity">Quantity</label>
+                <input
+                  id="quantity"
+                  name="quantity"
+                  type="number"
+                  min="1"
+                  max="10000"
+                  value="1"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="ask-price">Asking price per unit (optional)</label>
+              <input
+                id="ask-price"
+                name="askPrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Set your own price"
+              />
+              <p class="help">
+                This is displayed as your asking price, not a market valuation.
+              </p>
+            </div>
+            <div class="field">
+              <label for="condition">Condition</label>
+              <select id="condition" name="condition" required>
+                <option value="excellent">
+                  Excellent — tested, fully working
+                </option>
+                <option value="good">Good — working, normal wear</option>
+                <option value="fair">
+                  Fair — limitations or repair needed
+                </option>
+                <option value="parts">Not working — parts only</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="handoff">Preferred handoff</label>
+              <select id="handoff" name="handoff" required>
+                <option value="either">Open to either option</option>
+                <option value="direct">Transfer the hardware directly</option>
+                <option value="hosted">
+                  Keep it hosted for shared compute
+                </option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="notes">Anything else a buyer should know?</label>
+              <textarea
+                id="notes"
+                name="notes"
+                maxlength="400"
+                placeholder="Optional: server included, tested date, location, power needs, or known limitations."
+              ></textarea>
+            </div>
+            <button class="btn primary" type="submit">
+              Find potential markets
+            </button>
+          </form>
+
+          <section class="output" aria-live="polite" aria-atomic="false">
+            <div id="empty-state" class="empty">
+              <div>
+                <div class="eyebrow">Potential buyer markets</div>
+                <p>
+                  Enter your hardware details to see who might benefit from this
+                  equipment and how to position the listing.
+                </p>
+              </div>
+            </div>
+            <div id="recommendations" hidden></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      CASCADE © 2026 · Illustrative markets, not confirmed buyers
+    </footer>
+    <script>
+      const markets = [
+        {
+          name: "AI startups",
+          classes: ["datacenter", "workstation"],
+          minimumMemory: 16,
+          minimumQuantity: 1,
+          hosted: true,
+          direct: true,
+          description:
+            "May suit teams needing affordable inference, prototyping, or smaller model workloads without buying new enterprise hardware.",
+        },
+        {
+          name: "Universities and research labs",
+          classes: ["datacenter", "workstation", "entry", "unknown"],
+          minimumMemory: 8,
+          minimumQuantity: 1,
+          hosted: true,
+          direct: true,
+          description:
+            "Could support teaching, experiments, student projects, or research workloads where access matters more than having the latest generation.",
+        },
+        {
+          name: "Small businesses",
+          classes: ["workstation", "entry"],
+          minimumMemory: 8,
+          minimumQuantity: 1,
+          hosted: false,
+          direct: true,
+          description:
+            "A possible fit for private, local inference or specialized AI tools that do not require a large compute cluster.",
+        },
+        {
+          name: "Schools and community programs",
+          classes: ["workstation", "entry", "unknown"],
+          minimumMemory: 8,
+          minimumQuantity: 1,
+          hosted: false,
+          direct: true,
+          description:
+            "Might enable hands-on AI learning, maker projects, and introductory compute access with appropriate setup and support.",
+        },
+        {
+          name: "Edge AI and robotics teams",
+          classes: ["workstation", "entry"],
+          minimumMemory: 8,
+          minimumQuantity: 1,
+          hosted: false,
+          direct: true,
+          description:
+            "Potentially useful for local inference, computer vision, robotics, and other deployments where compute runs near the device.",
+        },
+        {
+          name: "Parts recovery and refurbishment",
+          classes: ["datacenter", "workstation", "entry", "unknown"],
+          minimumMemory: 1,
+          minimumQuantity: 1,
+          hosted: false,
+          direct: true,
+          description:
+            "If the unit needs repair or cannot be redeployed as a whole, a qualified refurbisher may recover components before recycling.",
+        },
+      ];
+
+      const conditionLabels = {
+        excellent: "Tested working · excellent",
+        good: "Working · good",
+        fair: "Limited / repair needed",
+        parts: "Not working · parts only",
+      };
+
+      function scoreMarket(market, listing) {
+        if (listing.condition === "parts") {
+          return market.name === "Parts recovery and refurbishment" ? 98 : 0;
+        }
+        if (
+          market.name === "Parts recovery and refurbishment" &&
+          (listing.condition === "excellent" || listing.condition === "good")
+        ) {
+          return 0;
+        }
+
+        let score = 42;
+        if (market.classes.includes(listing.hardwareClass)) {
+          score += 22;
+        }
+        if (listing.memory >= market.minimumMemory) {
+          score += Math.min(16, Math.floor(listing.memory / 8) * 2);
+        }
+        if (listing.quantity >= 4) {
+          score += market.hosted ? 12 : 5;
+        } else if (listing.quantity === 1 && !market.hosted) {
+          score += 6;
+        }
+        if (
+          listing.handoff === "either" ||
+          (listing.handoff === "hosted" && market.hosted) ||
+          (listing.handoff === "direct" && market.direct)
+        ) {
+          score += 8;
+        }
+        if (listing.condition === "fair") {
+          score -= 22;
+        } else if (listing.condition === "good") {
+          score += 4;
+        } else if (listing.condition === "excellent") {
+          score += 8;
+        }
+        return Math.min(96, Math.max(0, score));
+      }
+
+      function makeCard(market, score, listing) {
+        const card = document.createElement("article");
+        card.className = "segment";
+
+        const top = document.createElement("div");
+        top.className = "segment-top";
+
+        const title = document.createElement("h3");
+        title.textContent = market.name;
+        const fit = document.createElement("span");
+        fit.className = "fit";
+        fit.textContent =
+          score >= 75 ? "Strong fit" : score >= 55 ? "Possible fit" : "Explore";
+        top.append(title, fit);
+
+        const description = document.createElement("p");
+        description.textContent = market.description;
+        if (
+          listing.condition === "fair" &&
+          market.name !== "Parts recovery and refurbishment"
+        ) {
+          description.textContent +=
+            " Disclose the limitation and repair needs clearly before transfer.";
+        }
+
+        card.append(top, description);
+        return card;
+      }
+
+      function showRecommendations(listing) {
+        const rankedMarkets = markets
+          .map((market) => ({
+            ...market,
+            score: scoreMarket(market, listing),
+          }))
+          .filter((market) => market.score > 0)
+          .sort((first, second) => second.score - first.score)
+          .slice(0, 3);
+
+        const output = document.getElementById("recommendations");
+        const emptyState = document.getElementById("empty-state");
+        const title = document.createElement("h2");
+        title.textContent = "Where it could fit";
+
+        const intro = document.createElement("p");
+        intro.className = "output-intro";
+        intro.textContent =
+          "These buyer segments are suggestions based on the listing details—not confirmed leads. A fit does not guarantee compatibility or demand.";
+
+        const preview = document.createElement("article");
+        preview.className = "listing";
+        const model = document.createElement("h3");
+        model.textContent = listing.model;
+        const specs = document.createElement("div");
+        specs.className = "specs";
+        [
+          `${listing.memory} GB per GPU`,
+          `${listing.quantity} ${listing.quantity === 1 ? "unit" : "units"}`,
+          conditionLabels[listing.condition],
+          listing.handoff === "hosted"
+            ? "Hosted compute preferred"
+            : listing.handoff === "direct"
+              ? "Hardware transfer preferred"
+              : "Flexible handoff",
+        ].forEach((text) => {
+          const tag = document.createElement("span");
+          tag.className = "spec";
+          tag.textContent = text;
+          specs.append(tag);
+        });
+        preview.append(model, specs);
+        if (listing.askPrice !== null) {
+          const askingPrice = document.createElement("p");
+          askingPrice.textContent = `Seller asking price: $${listing.askPrice.toLocaleString()} per unit. This is not a Cascade valuation.`;
+          preview.append(askingPrice);
+        }
+        if (listing.notes) {
+          const notes = document.createElement("p");
+          notes.textContent = listing.notes;
+          preview.append(notes);
+        }
+
+        const segmentList = document.createElement("div");
+        segmentList.className = "segment-list";
+        rankedMarkets.forEach((market) => {
+          segmentList.append(makeCard(market, market.score, listing));
+        });
+
+        output.replaceChildren(title, intro, preview, segmentList);
+        output.hidden = false;
+        emptyState.hidden = true;
+        output.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      document
+        .getElementById("hardware-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!event.currentTarget.reportValidity()) {
+            return;
+          }
+          const formData = new FormData(event.currentTarget);
+          showRecommendations({
+            model: String(formData.get("model")).trim(),
+            hardwareClass: formData.get("hardwareClass"),
+            memory: Number(formData.get("memory")),
+            quantity: Number(formData.get("quantity")),
+            askPrice:
+              formData.get("askPrice") === ""
+                ? null
+                : Number(formData.get("askPrice")),
+            condition: formData.get("condition"),
+            handoff: formData.get("handoff"),
+            notes: String(formData.get("notes")).trim(),
+          });
+        });
+    </script>
+  </body>
+</html>

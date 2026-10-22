@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Describe your AI workload and get recommendations for a fitting class of reused AI hardware."
+    />
+    <title>Find a Match | CASCADE</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+      :root {
+        color-scheme: dark;
+        --blue: #169cff;
+        --ink: #030405;
+        --panel: #090c10;
+        --muted: #9da5ae;
+        --line: #1c2d3b;
+        --white: #f5f7fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--white);
+        font-family: Inter, Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        width: min(1120px, 100%);
+        margin: auto;
+        padding: 0 28px;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 78px;
+        padding: 0 max(28px, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid #15212b;
+        background: rgb(3 4 5 / 92%);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        font:
+          600 30px "Barlow Condensed",
+          sans-serif;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px #168cff;
+      }
+
+      .brand small {
+        display: block;
+        color: #9cb9d1;
+        font:
+          400 10px Inter,
+          sans-serif;
+        letter-spacing: 3px;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 13px 18px;
+        border: 1px solid var(--blue);
+        background: transparent;
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn.primary {
+        background: var(--blue);
+        color: #00101c;
+        font-weight: 700;
+      }
+
+      main {
+        padding: 78px 0 110px;
+      }
+
+      .eyebrow {
+        color: #9dcfff;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 16px 0;
+        font-size: clamp(58px, 9vw, 104px);
+        line-height: 0.9;
+      }
+
+      .intro {
+        max-width: 680px;
+        color: #bdc5cc;
+        line-height: 1.8;
+      }
+
+      .notice {
+        margin: 32px 0;
+        padding: 16px 18px;
+        border-left: 2px solid var(--blue);
+        background: #07111a;
+        color: #bdc5cc;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .matcher {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 28px;
+        align-items: start;
+        margin-top: 38px;
+      }
+
+      form,
+      .results {
+        padding: 28px;
+        border: 1px solid #183148;
+        background: #05080b;
+      }
+
+      .results {
+        min-height: 300px;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 9px;
+        color: #7eb7df;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #253846;
+        border-radius: 0;
+        background: #080d12;
+        color: var(--white);
+        font:
+          14px Inter,
+          Arial,
+          sans-serif;
+      }
+
+      textarea {
+        min-height: 115px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      .help {
+        margin: 8px 0 0;
+        color: #818d97;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .result-heading {
+        margin: 8px 0;
+        font-size: 38px;
+      }
+
+      .result-summary {
+        color: #aeb8c0;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .recommendations {
+        display: grid;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .recommendation {
+        padding: 18px;
+        border: 1px solid #263b4d;
+        background: var(--panel);
+      }
+
+      .recommendation:first-child {
+        border-color: var(--blue);
+        box-shadow: 0 0 22px #008cff1a;
+      }
+
+      .recommendation-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .recommendation h3 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .fit {
+        color: #75c8ff;
+        font:
+          600 20px "Barlow Condensed",
+          sans-serif;
+        white-space: nowrap;
+      }
+
+      .specs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 12px 0;
+      }
+
+      .spec {
+        padding: 6px 8px;
+        border: 1px solid #263441;
+        color: #aab6c0;
+        font-size: 10px;
+      }
+
+      .recommendation p {
+        margin: 0;
+        color: #9aa4ad;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .empty {
+        display: grid;
+        min-height: 245px;
+        place-content: center;
+        color: #87939d;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .footer {
+        padding: 28px;
+        border-top: 1px solid #17242e;
+        color: #78838c;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+          padding: 14px 24px;
+        }
+
+        .links {
+          flex-wrap: wrap;
+          gap: 14px;
+          font-size: 10px;
+        }
+
+        .matcher {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .wrap {
+          padding: 0 18px;
+        }
+
+        form,
+        .results {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="index.html">CASCADE</a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="index.html#market">Marketplace</a>
+        <a href="match.html" aria-current="page">Find a match</a>
+        <a href="list-hardware.html">List hardware</a>
+        <a href="certification.html">Testing</a>
+      </nav>
+    </header>
+    <main>
+      <div class="wrap">
+        <div class="eyebrow">Workload matching</div>
+        <h1>Start with what you want to build.</h1>
+        <p class="intro">
+          Describe the workload, and Cascade will suggest the kind of reused AI
+          hardware that could fit—plus explain the tradeoffs. No GPU expertise
+          required.
+        </p>
+        <div class="notice">
+          Recommendations are based on the workload and preferences provided.
+          Confirm software compatibility, verified equipment condition, power,
+          networking, availability, and total cost before committing.
+        </div>
+
+        <div class="matcher">
+          <form id="match-form">
+            <div class="field">
+              <label for="use-case">What are you trying to do?</label>
+              <textarea
+                id="use-case"
+                name="useCase"
+                placeholder="Example: Run a small language model for a student help desk, with private data kept on campus."
+                required
+                minlength="12"
+                maxlength="500"
+              ></textarea>
+              <p class="help">
+                A sentence or two is enough. Mention the kind of AI work and
+                anything important, like privacy or where it needs to run.
+              </p>
+            </div>
+            <div class="field">
+              <label for="workload">Workload type</label>
+              <select id="workload" name="workload">
+                <option value="auto">Help me choose from my description</option>
+                <option value="llm">Language model or AI assistant</option>
+                <option value="finetune">Train or fine-tune a model</option>
+                <option value="vision">Images or computer vision</option>
+                <option value="research">
+                  Research, learning, or experiments
+                </option>
+                <option value="edge">On-site, edge, or robotics AI</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">Budget approach</label>
+              <select id="budget" name="budget">
+                <option value="value">Keep cost as low as practical</option>
+                <option value="balanced">Balance cost and capability</option>
+                <option value="capability">Prioritize capability</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="deployment">Where should it run?</label>
+              <select id="deployment" name="deployment">
+                <option value="either">Open to hosted or on-site</option>
+                <option value="local">On-site / local control</option>
+                <option value="hosted">Hosted / shared access</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="scale">Expected scale</label>
+              <select id="scale" name="scale">
+                <option value="pilot">One user or small pilot</option>
+                <option value="team">A steady team workload</option>
+                <option value="large">Large or bursty workloads</option>
+              </select>
+            </div>
+            <button class="btn primary" type="submit">See my matches</button>
+          </form>
+
+          <section class="results" aria-live="polite" aria-atomic="false">
+            <div id="empty-state" class="empty">
+              <div>
+                <div class="eyebrow">Your recommendations</div>
+                <p>
+                  Share your use case to see suitable hardware classes and why
+                  they may fit.
+                </p>
+              </div>
+            </div>
+            <div id="match-results" hidden></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">CASCADE © 2026 · AI hardware marketplace</footer>
+    <script>
+      const hardware = [
+        {
+          name: "NVIDIA T4",
+          memory: "16 GB memory",
+          tier: "value",
+          workloads: { llm: 5, finetune: 2, vision: 7, research: 7, edge: 10 },
+          scales: ["pilot"],
+          deployments: ["local", "hosted"],
+          pitch:
+            "A lower-power candidate for small inference tasks, classroom projects, and edge deployments. Not a fit for demanding model training.",
+          reason:
+            "Its smaller footprint can be a practical starting point for modest workloads where keeping cost and power use down matters.",
+        },
+        {
+          name: "NVIDIA V100",
+          memory: "32 GB memory",
+          tier: "value",
+          workloads: { llm: 7, finetune: 7, vision: 7, research: 8, edge: 4 },
+          scales: ["pilot", "team"],
+          deployments: ["local", "hosted"],
+          pitch:
+            "A previous-generation accelerator candidate for research, smaller training jobs, and general-purpose compute.",
+          reason:
+            "It offers more memory and compute headroom than entry-level options while remaining a reuse-oriented candidate.",
+        },
+        {
+          name: "NVIDIA RTX A6000",
+          memory: "48 GB memory",
+          tier: "balanced",
+          workloads: { llm: 8, finetune: 8, vision: 9, research: 9, edge: 7 },
+          scales: ["pilot", "team"],
+          deployments: ["local"],
+          pitch:
+            "A workstation-class candidate with substantial memory for local experimentation, vision, and moderate model workloads.",
+          reason:
+            "It may suit teams that want capable on-site compute without immediately stepping up to a data-center accelerator.",
+        },
+        {
+          name: "NVIDIA A100",
+          memory: "40 GB memory",
+          tier: "capability",
+          workloads: { llm: 10, finetune: 10, vision: 9, research: 9, edge: 3 },
+          scales: ["team", "large"],
+          deployments: ["hosted", "local"],
+          pitch:
+            "A data-center-class candidate for heavier model workloads, parallel jobs, and teams needing more compute headroom.",
+          reason:
+            "It is the strongest candidate here for demanding AI workloads, but may be unnecessary for a small pilot or simple inference.",
+        },
+      ];
+
+      const workloadNames = {
+        llm: "language models and assistants",
+        finetune: "model training and fine-tuning",
+        vision: "image and computer-vision workloads",
+        research: "research and learning",
+        edge: "on-site and edge AI",
+        general: "a general-purpose AI workload",
+      };
+
+      function inferWorkload(description) {
+        const text = description.toLowerCase();
+        if (/\b(fine.?tun|train|training|learned model)\b/.test(text)) {
+          return "finetune";
+        }
+        if (
+          /\b(edge|on.?device|on.?site|robot|robotics|camera|factory)\b/.test(
+            text,
+          )
+        ) {
+          return "edge";
+        }
+        if (
+          /\b(vision|image|video|camera|object detection|segmentation)\b/.test(
+            text,
+          )
+        ) {
+          return "vision";
+        }
+        if (
+          /\b(llm|language model|chatbot|assistant|rag|text generation)\b/.test(
+            text,
+          )
+        ) {
+          return "llm";
+        }
+        if (
+          /\b(research|class|student|learn|experiment|university|lab)\b/.test(
+            text,
+          )
+        ) {
+          return "research";
+        }
+        return "general";
+      }
+
+      function getWorkloadScore(item, workload) {
+        if (workload !== "general") {
+          return item.workloads[workload];
+        }
+        const scores = Object.values(item.workloads);
+        return Math.round(
+          scores.reduce((total, score) => total + score, 0) / scores.length,
+        );
+      }
+
+      function getFitScore(item, formValues, workload) {
+        const workloadScore = getWorkloadScore(item, workload);
+        const budgetScores = {
+          value: { value: 26, balanced: 16, capability: 3 },
+          balanced: { value: 21, balanced: 26, capability: 10 },
+          capability: { value: 14, balanced: 18, capability: 26 },
+        };
+        const budgetScore = budgetScores[formValues.budget][item.tier];
+        const deploymentScore =
+          formValues.deployment === "either"
+            ? 6
+            : item.deployments.includes(formValues.deployment)
+              ? 10
+              : 0;
+        const scaleScore = item.scales.includes(formValues.scale) ? 12 : 3;
+        return Math.min(
+          98,
+          Math.round(
+            workloadScore * 6 + budgetScore + deploymentScore + scaleScore,
+          ),
+        );
+      }
+
+      function renderMatches(formValues) {
+        const inferredWorkload = inferWorkload(formValues.useCase);
+        const workload =
+          formValues.workload === "auto"
+            ? inferredWorkload
+            : formValues.workload;
+        const descriptionSuggestsLocal =
+          /\b(private|sensitive|on campus|on-prem|on.?site|local control|cannot leave)\b/i.test(
+            formValues.useCase,
+          );
+        const deployment =
+          formValues.deployment === "either" && descriptionSuggestsLocal
+            ? "local"
+            : formValues.deployment;
+        const preferences = { ...formValues, deployment };
+        const matches = hardware
+          .map((item) => ({
+            ...item,
+            score: getFitScore(item, preferences, workload),
+          }))
+          .sort((first, second) => second.score - first.score)
+          .slice(0, 3);
+
+        const results = document.getElementById("match-results");
+        const emptyState = document.getElementById("empty-state");
+        const heading = document.createElement("h2");
+        heading.className = "result-heading";
+        heading.textContent = "Your best-fit technology";
+
+        const summary = document.createElement("p");
+        summary.className = "result-summary";
+        summary.textContent =
+          "Based on your description, this looks like " +
+          workloadNames[workload] +
+          (descriptionSuggestsLocal && formValues.deployment === "either"
+            ? " Your mention of private or on-site use favors local-control options."
+            : "") +
+          " Rankings are based on your preferences, not benchmark results.";
+
+        const list = document.createElement("div");
+        list.className = "recommendations";
+
+        matches.forEach((item, index) => {
+          const card = document.createElement("article");
+          card.className = "recommendation";
+
+          const top = document.createElement("div");
+          top.className = "recommendation-top";
+
+          const title = document.createElement("h3");
+          title.textContent = item.name;
+          const fit = document.createElement("span");
+          fit.className = "fit";
+          fit.textContent = `${item.score} match`;
+          top.append(title, fit);
+
+          const specs = document.createElement("div");
+          specs.className = "specs";
+          [
+            item.memory,
+            item.tier === "value"
+              ? "Value-oriented"
+              : item.tier === "balanced"
+                ? "Balanced tier"
+                : "Capability tier",
+            item.scales.includes(preferences.scale)
+              ? "Scale appears suitable"
+              : "May be undersized for selected scale",
+          ].forEach((specText) => {
+            const spec = document.createElement("span");
+            spec.className = "spec";
+            spec.textContent = specText;
+            specs.append(spec);
+          });
+
+          const reason = document.createElement("p");
+          reason.textContent =
+            (index === 0 ? item.reason : item.pitch) +
+            (item.deployments.includes(preferences.deployment) ||
+            preferences.deployment === "either"
+              ? " Could be considered for your deployment preference."
+              : " Confirm deployment compatibility before choosing.");
+          card.append(top, specs, reason);
+          list.append(card);
+        });
+
+        results.replaceChildren(heading, summary, list);
+        results.hidden = false;
+        emptyState.hidden = true;
+        results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      document
+        .getElementById("match-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!event.currentTarget.reportValidity()) {
+            return;
+          }
+          renderMatches(Object.fromEntries(new FormData(event.currentTarget)));
+        });
+    </script>
+  </body>
+</html>

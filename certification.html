@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Record hardware inspection and diagnostic results and prepare equipment for independent Cascade verification."
+    />
+    <title>Testing & Certification | CASCADE</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+      :root {
+        color-scheme: dark;
+        --blue: #169cff;
+        --ink: #030405;
+        --panel: #090c10;
+        --muted: #9da5ae;
+        --white: #f5f7fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--white);
+        font-family: Inter, Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        width: min(1120px, 100%);
+        margin: auto;
+        padding: 0 28px;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 78px;
+        padding: 0 max(28px, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid #15212b;
+        background: rgb(3 4 5 / 92%);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        font:
+          600 30px "Barlow Condensed",
+          sans-serif;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px #168cff;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      main {
+        padding: 76px 0 100px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin: 18px 0;
+        font-size: clamp(56px, 9vw, 100px);
+        line-height: 0.9;
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: clamp(38px, 6vw, 62px);
+      }
+
+      .eyebrow {
+        color: #9dcfff;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .intro,
+      .section-copy {
+        max-width: 750px;
+        color: #bdc5cc;
+        line-height: 1.8;
+      }
+
+      .notice {
+        margin: 28px 0 45px;
+        padding: 16px 18px;
+        border-left: 2px solid var(--blue);
+        background: #07111a;
+        color: #bdc5cc;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 70px;
+      }
+
+      .step,
+      form,
+      .report {
+        border: 1px solid #1b2c3a;
+        background: var(--panel);
+      }
+
+      .step {
+        padding: 22px;
+      }
+
+      .step b {
+        display: block;
+        margin-bottom: 8px;
+        color: #75c8ff;
+        font:
+          600 24px "Barlow Condensed",
+          sans-serif;
+      }
+
+      .step p,
+      .test-help {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .assessment {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 26px;
+        align-items: start;
+      }
+
+      form,
+      .report {
+        padding: 26px;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #7eb7df;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #253846;
+        border-radius: 0;
+        background: #080d12;
+        color: var(--white);
+        font:
+          14px Inter,
+          Arial,
+          sans-serif;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      .test-list {
+        display: grid;
+        gap: 12px;
+        margin: 20px 0;
+      }
+
+      .test-item {
+        padding: 15px;
+        border: 1px solid #263441;
+        background: #070a0d;
+      }
+
+      .test-item label {
+        margin-bottom: 8px;
+        color: #e8edf1;
+        font-size: 12px;
+        letter-spacing: 0.4px;
+        text-transform: none;
+      }
+
+      .test-item p {
+        margin: 0 0 10px;
+        color: #87939d;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 13px 18px;
+        border: 1px solid var(--blue);
+        background: transparent;
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn.primary {
+        background: var(--blue);
+        color: #00101c;
+        font-weight: 700;
+      }
+
+      .report {
+        min-height: 420px;
+      }
+
+      .report-empty {
+        display: grid;
+        min-height: 370px;
+        place-content: center;
+        color: #87939d;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .status {
+        margin: 16px 0;
+        padding: 14px;
+        border-left: 2px solid var(--blue);
+        background: #07111a;
+        color: #d8e3eb;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .report-meta,
+      .report-list {
+        color: #b6c0c8;
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .report-list {
+        padding-left: 20px;
+      }
+
+      .report-list .pass {
+        color: #82d8a3;
+      }
+
+      .report-list .fail {
+        color: #ff9c9c;
+      }
+
+      .report-list .untested {
+        color: #ffd27b;
+      }
+
+      .report-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .fine-print {
+        margin-top: 24px;
+        color: #87939d;
+        font-size: 11px;
+        line-height: 1.7;
+      }
+
+      .footer {
+        padding: 28px;
+        border-top: 1px solid #17242e;
+        color: #78838c;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .assessment {
+          grid-template-columns: 1fr;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+          padding: 14px 20px;
+        }
+
+        .links {
+          flex-wrap: wrap;
+          gap: 12px;
+          font-size: 9px;
+        }
+
+        .wrap {
+          padding: 0 18px;
+        }
+
+        form,
+        .report {
+          padding: 19px;
+        }
+
+        .field-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+
+      @media print {
+        :root {
+          color-scheme: light;
+        }
+
+        body {
+          background: white;
+          color: #111;
+        }
+
+        .nav,
+        .intro,
+        .notice,
+        .steps,
+        form,
+        .report-actions,
+        .footer,
+        .eyebrow {
+          display: none !important;
+        }
+
+        main {
+          padding: 0;
+        }
+
+        .wrap {
+          width: 100%;
+          padding: 0;
+        }
+
+        .assessment {
+          display: block;
+        }
+
+        .report {
+          border: 0;
+          background: white;
+          color: #111;
+        }
+
+        .report-meta,
+        .report-list,
+        .fine-print,
+        .report h2 {
+          color: #111;
+        }
+
+        .status {
+          border: 1px solid #333;
+          background: white;
+          color: #111;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="index.html">CASCADE</a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="index.html#market">Marketplace</a>
+        <a href="match.html">Find a match</a>
+        <a href="list-hardware.html">List hardware</a>
+        <a href="certification.html" aria-current="page">Testing</a>
+      </nav>
+    </header>
+    <main>
+      <div class="wrap">
+        <div class="eyebrow">Equipment assurance</div>
+        <h1>Test it. Document it. Build trust.</h1>
+        <p class="intro">
+          Record the inspection and diagnostic results buyers need to make an
+          informed decision. A complete test record helps prepare a unit for
+          independent verification before it is listed as certified.
+        </p>
+        <div class="notice">
+          A seller's checklist is not a certification. Cascade certification
+          requires an independent inspection and review by an authorized
+          technician. This report records the information entered here; it does
+          not run tests on the hardware or independently verify results.
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <b>01 / Inspect</b>
+            <p>
+              Confirm the model, asset identity, physical condition,
+              accessories, and secure data-erasure record.
+            </p>
+          </article>
+          <article class="step">
+            <b>02 / Test</b>
+            <p>
+              Run documented diagnostics for memory, sustained load, thermals,
+              connectivity, and system stability.
+            </p>
+          </article>
+          <article class="step">
+            <b>03 / Verify</b>
+            <p>
+              An authorized technician reviews the evidence and records the
+              verification outcome before a certified status is issued.
+            </p>
+          </article>
+        </div>
+
+        <div class="assessment">
+          <form id="assessment-form">
+            <div class="eyebrow">Seller test record</div>
+            <h2>Equipment details</h2>
+            <div class="field">
+              <label for="model">Manufacturer and model</label>
+              <input
+                id="model"
+                name="model"
+                type="text"
+                maxlength="120"
+                placeholder="Example: NVIDIA A100 40GB"
+                required
+              />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="asset-tag">Asset tag or listing reference</label>
+                <input
+                  id="asset-tag"
+                  name="assetTag"
+                  type="text"
+                  maxlength="80"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="serial-suffix">Serial number last 4</label>
+                <input
+                  id="serial-suffix"
+                  name="serialSuffix"
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[A-Za-z0-9]{4}"
+                  maxlength="4"
+                  minlength="4"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="tested-by">Tested by</label>
+                <input
+                  id="tested-by"
+                  name="testedBy"
+                  type="text"
+                  maxlength="100"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="test-date">Test date</label>
+                <input id="test-date" name="testDate" type="date" required />
+              </div>
+            </div>
+            <div class="eyebrow">Diagnostic checklist</div>
+            <p class="test-help">
+              Choose the recorded outcome for each check. "Not tested" keeps the
+              report incomplete; a failed result flags the equipment for repair
+              or further review.
+            </p>
+            <div class="test-list">
+              <div class="test-item">
+                <label for="inspection">Physical inspection and cooling</label>
+                <p>
+                  Check for damage, corrosion, missing parts, fan operation, and
+                  clear airflow.
+                </p>
+                <select id="inspection" name="inspection" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="boot">System boot and device detection</label>
+                <p>
+                  Confirm the host detects the device and the expected driver
+                  can initialize it.
+                </p>
+                <select id="boot" name="boot" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="memory">Memory integrity</label>
+                <p>
+                  Run a supported VRAM diagnostic and record any errors or
+                  unavailable capacity.
+                </p>
+                <select id="memory" name="memory" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="load">Sustained compute load and stability</label>
+                <p>
+                  Run a documented workload and watch for faults, resets, or
+                  unexpected throttling.
+                </p>
+                <select id="load" name="load" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="thermal">Temperature and power behavior</label>
+                <p>
+                  Record temperatures and power under load against manufacturer
+                  specifications.
+                </p>
+                <select id="thermal" name="thermal" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="connectivity">Ports and system connectivity</label>
+                <p>
+                  Check required data and power connectors and confirm stable
+                  operation in the intended host.
+                </p>
+                <select id="connectivity" name="connectivity" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+              <div class="test-item">
+                <label for="erase">Data removal and ownership record</label>
+                <p>
+                  Document applicable storage sanitization and confirm the
+                  equipment is authorized for transfer.
+                </p>
+                <select id="erase" name="erase" required>
+                  <option value="untested">Not tested</option>
+                  <option value="pass">Pass</option>
+                  <option value="fail">Fail</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="notes">Diagnostic notes and tool versions</label>
+              <textarea
+                id="notes"
+                name="notes"
+                maxlength="1200"
+                placeholder="Record benchmark or diagnostic names, duration, driver version, observed temperatures, and any limitations."
+              ></textarea>
+            </div>
+            <button class="btn primary" type="submit">
+              Create test report
+            </button>
+          </form>
+
+          <section class="report" aria-live="polite" aria-atomic="false">
+            <div id="report-empty" class="report-empty">
+              <div>
+                <div class="eyebrow">Equipment record</div>
+                <p>
+                  Complete the checklist to generate a report and see what
+                  remains before independent verification.
+                </p>
+              </div>
+            </div>
+            <div id="report-output" hidden></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">CASCADE © 2026</footer>
+    <script>
+      const checks = [
+        ["inspection", "Physical inspection and cooling"],
+        ["boot", "System boot and device detection"],
+        ["memory", "Memory integrity"],
+        ["load", "Sustained compute load and stability"],
+        ["thermal", "Temperature and power behavior"],
+        ["connectivity", "Ports and system connectivity"],
+        ["erase", "Data removal and ownership record"],
+      ];
+
+      const resultLabels = {
+        pass: "PASS — seller reported",
+        fail: "FAIL — review required",
+        untested: "NOT TESTED",
+      };
+
+      function appendTextElement(parent, tagName, className, text) {
+        const element = document.createElement(tagName);
+        if (className) {
+          element.className = className;
+        }
+        element.textContent = text;
+        parent.append(element);
+        return element;
+      }
+
+      document
+        .getElementById("assessment-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          if (!form.reportValidity()) {
+            return;
+          }
+
+          const data = new FormData(form);
+          const outcomes = checks.map(([id, label]) => ({
+            label,
+            result: data.get(id),
+          }));
+          const failed = outcomes.filter(({ result }) => result === "fail");
+          const untested = outcomes.filter(
+            ({ result }) => result === "untested",
+          );
+          const report = document.getElementById("report-output");
+          const empty = document.getElementById("report-empty");
+          const title = document.createElement("h2");
+          title.textContent = "Equipment test report";
+
+          const status = document.createElement("div");
+          status.className = "status";
+          status.textContent = failed.length
+            ? `${failed.length} check${failed.length === 1 ? "" : "s"} failed. Address the findings before requesting independent certification.`
+            : untested.length
+              ? `${untested.length} check${untested.length === 1 ? "" : "s"} remain untested. The assessment is incomplete and is not ready for certification review.`
+              : "All checklist items are reported as passed. This record is ready for independent review; no certification has been issued.";
+
+          const meta = document.createElement("div");
+          meta.className = "report-meta";
+          appendTextElement(meta, "p", "", `Equipment: ${data.get("model")}`);
+          appendTextElement(
+            meta,
+            "p",
+            "",
+            `Asset reference: ${data.get("assetTag")} · Serial ending: ${data.get("serialSuffix")}`,
+          );
+          appendTextElement(
+            meta,
+            "p",
+            "",
+            `Seller-reported tester: ${data.get("testedBy")} · Test date: ${data.get("testDate")}`,
+          );
+
+          const list = document.createElement("ul");
+          list.className = "report-list";
+          outcomes.forEach(({ label, result }) => {
+            const item = document.createElement("li");
+            item.className = result;
+            item.textContent = `${label}: ${resultLabels[result]}`;
+            list.append(item);
+          });
+
+          const reportNotes = document.createElement("p");
+          reportNotes.className = "report-meta";
+          reportNotes.textContent =
+            data.get("notes") || "No diagnostic notes supplied.";
+
+          const finePrint = document.createElement("p");
+          finePrint.className = "fine-print";
+          finePrint.textContent =
+            "Seller-reported results only. This report is not an independent inspection, benchmark validation, or Cascade certification. A certified status can only be issued after an authorized technician reviews the equipment and supporting evidence.";
+
+          const actions = document.createElement("div");
+          actions.className = "report-actions";
+          const printButton = document.createElement("button");
+          printButton.className = "btn primary";
+          printButton.type = "button";
+          printButton.textContent = "Print / save report";
+          printButton.addEventListener("click", () => window.print());
+          actions.append(printButton);
+
+          report.replaceChildren(
+            title,
+            status,
+            meta,
+            list,
+            reportNotes,
+            finePrint,
+            actions,
+          );
+          report.hidden = false;
+          empty.hidden = true;
+          report.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+    </script>
+  </body>
+</html>
